@@ -69,6 +69,9 @@ def main():
         raise ValueError(f"Отсутствуют нужные колонки: {missing_columns}")
 
     df = df[REQUIRED_COLUMNS]
+    
+    # Удаляем товары с "УЦІНКА"
+    df = df[~df["Товар"].str.contains("УЦІНКА", case=False, na=False)]
 
     # удаляем строки без штрих-кода
     df = df.dropna(subset=["Штрих-код"])
